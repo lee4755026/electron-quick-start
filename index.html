@@ -18,6 +18,13 @@
         width:18px;height: 16px;
         vertical-align: top;
       }
+      .input{
+        width:120px;
+        border: 1px;
+        text-align: right;
+        line-height: 20px;
+        padding-right:5px;
+      }
       table{
         width:100%;
       }
@@ -26,7 +33,7 @@
         collapse: 0px;
         border-spacing: 0px;
         width: 50%;
-        padding:1px;
+        padding:1px 3px 1px 3px;
         text-align: center;
         background-color: white;
         font-size: small;
@@ -44,38 +51,42 @@
           <div class="title">仿真结果</div>
           <div style="padding:0px 5px 0px 5px;">
             <div style="text-align: right;">
-              <button style="width:100px;background-color: green;color: white;" id="btn_evaluation">开始计算</button>
+              <button style="width:100px;height:35px;background-color: green;color: white;" id="btn_evaluation">开始计算</button>
             </div>
             <div>
               <span>RSRP (dBm)</span>
               <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td>[-Infinity,-115)</td>
-                  <td></td>
+                  <td>
+                    <span><input type="text" class="input" id="input_a_0">%</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>[-115,-105)</td>
-                  <td></td>
+                  <td>
+                    <span><input type="text" class="input" id="input_a_1">%</span>
+                  </td>
                 </tr>
                 <tr>
                   <td>[-105,-95)</td>
-                  <td></td>
+                  <td><span><input type="text" class="input" id="input_a_2">%</span></td>
                 </tr>
                 <tr>
                   <td>[-95,-85)</td>
-                  <td></td>
+                  <td><span><input type="text" class="input" id="input_a_3">%</span></td>
                 </tr>
                 <tr>
                   <td>[-85,-75)</td>
-                  <td></td>
+                  <td><span><input type="text" class="input" id="input_a_4">%</span></td>
                 </tr>
                 <tr>
                   <td>[-75,0)</td>
-                  <td></td>
+                  <td><span><input type="text" class="input" id="input_a_5">%</span></td>
                 </tr>
                 <tr>
                   <td>[0,Infinity)</td>
-                  <td></td>
+                  <td><span><input type="text" class="input" id="input_a_6">%</span></td>
                 </tr>
               </table>
             </div>
@@ -84,56 +95,56 @@
               <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td>1</td>
-                  <td>1</td>
+                  <td><span><input type="text" class="input" id="input_b_1">%</span></td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>2</td>
+                  <td><input type="text" class="input" id="input_b_2">%</span></td>
                 </tr>
                 <tr>
                   <td>3</td>
-                  <td>2</td>
+                  <td><input type="text" class="input" id="input_b_3">%</span></td>
                 </tr>
                 <tr>
                   <td>4</td>
-                  <td>2</td>
+                  <td><input type="text" class="input" id="input_b_4">%</span></td>
                 </tr>
                 <tr>
                   <td>5</td>
-                  <td>2</td>
+                  <td><input type="text" class="input" id="input_b_5">%</span></td>
                 </tr>
                 <tr>
                   <td>6</td>
-                  <td>2</td>
+                  <td><input type="text" class="input" id="input_b_6">%</span></td>
                 </tr>
                 <tr>
                   <td>7</td>
-                  <td>2</td>
+                  <td><input type="text" class="input" id="input_b_7">%</span></td>
                 </tr>
                 <tr>
                   <td>8</td>
-                  <td>2</td>
+                  <td><input type="text" class="input" id="input_b_8">%</span></td>
                 </tr>
                 <tr>
                   <td>9</td>
-                  <td>2</td>
+                  <td><input type="text" class="input" id="input_b_9">%</span></td>
                 </tr>
               </table>
             </div>
             <div>
-              <span>室外10米处</span>
+              <span>室外10米处:</span>
               <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td>RSRP（dBm）</td>
-                  <td>1</td>
+                  <td><input type="text" class="input" id="input_c">%</span></td>
                 </tr>
                 <tr>
                   <td>室外第一导频的RSRP（dBm）</td>
-                  <td>2</td>
+                  <td><input type="text" class="input" id="input_d">%</span></td>
                 </tr>
                 <tr>
                   <td>室内小区外泄的RSRP（dBm）</td>
-                  <td>2</td>
+                  <td><input type="text" class="input" id="input_e">%</span></td>
                 </tr>
               </table>
             </div>
@@ -143,47 +154,47 @@
         <div style="width:43%;height:520px;display:inline-block;background-color: #d9d9d9;vertical-align: top;">
 <!--          右-->
           <div class="title">评估结果</div>
-          <div style="padding: 10px 5px 0px 25px;height: 280px;">
+          <div style="padding: 30px 5px 0px 25px;height: 250px;">
             <div id="div_cmcc">
               <div style="display: inline-block;width:30%;">
                 <img src="./resource/image/cmcc.png" class="logo">
               </div>
-              <div style="display: inline-block;width:60%;vertical-align: middle;" id="div_cmcc_heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
+              <div style="display: inline-block;width:60%;vertical-align: middle;line-height: 54px;" id="div_cmcc_heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
               </div>
             </div>
             <div id="div_cu">
               <div style="display: inline-block;width:30%;">
                 <img src="./resource/image/cu.png" class="logo">
               </div>
-              <div style="display: inline-block;width:60%;" id="div_cu_heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
+              <div style="display: inline-block;width:60%;line-height: 54px;" id="div_cu_heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
               </div>
             </div>
             <div id="div_ct">
               <div style="display: inline-block;width:30%;">
                 <img src="./resource/image/ct.png" class="logo">
               </div>
-              <div style="display: inline-block;width:60%;" id="div_ct_heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
-                <img src="./resource/image/heart-red.png" class="heart">
+              <div style="display: inline-block;line-height: 54px;width:60%;" id="div_ct_heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
+                <img src="./resource/image/heart-empty.png" class="heart">
               </div>
             </div>
           </div>
           <div style="height: 180px;background-color: white;">
             <div>评估结果:</div>
-            <div>自动生成</div>
+            <div id="div_result">自动生成</div>
           </div>
         </div>
 
@@ -194,7 +205,107 @@
     <script src="./resource/jquery.min.js"></script>
     <script type="text/javascript">
       $().ready(function () {
-        // alert("111");
+        $("#btn_evaluation").click(function () {
+          /*
+          A RSRP (dBm)
+          1:[-Infinity,-115)
+          2:[-115,-105)
+          3:[-105,-95)
+          4:[-95,-85)
+          5:[-85,-75)
+          6:[-75,0)
+          7:[0,Infinity)
+          */
+
+          //计算A ≥ -115 的总数
+          const sumAGte115=sumInput("input_a_",1);
+          // alert(sumAGte115);
+          const sumAGte105=sumInput("input_a_",2);
+          const sumAGte100=sumInput("input_a_",2);//TODO：无法计算
+          const sumAGte95=sumInput("input_a_",3);
+
+          const sumBGte9=sumInput("input_b_",9);
+          const sumBGte6=sumInput("input_b_",6);
+          const sumBGte5=sumInput("input_b_",5);
+          const sumBGte4=sumInput("input_b_",4);
+          const sumBGte3=sumInput("input_b_",3);
+          const sumBGte2=sumInput("input_b_",2);
+          const sumBGte1=sumInput("input_b_",1);
+
+          const c=getValue($("#input_c"));
+          const d=getValue($("#input_d"));
+          const e=getValue($("#input_e"));
+
+          resetStars();
+          resetResult();
+
+          //移动
+          if(sumAGte95 >=99 && sumBGte9>=99){
+            showStars("cmcc",3);
+            showResult("cmcc",0);
+          }else if(sumAGte105 >=99 && sumBGte6>=99){
+            showStars("cmcc",2);
+            showResult("cmcc",1);
+          } else{
+            showResult("cmcc",2);
+          }
+
+
+
+        });
+
+        function sumInput(prefix,startLevel) {
+          let sum = 0;
+          for (let i = startLevel; i <= 9; i++) {
+            let input = $("#"+prefix + i+"");
+            // console.log(input.id);
+            sum += parseFloat(getValue(input));
+          }
+          return sum;
+        }
+
+        function getValue(input) {
+          if (!!input && !!input.val()) {
+            return input.val();
+          } else {
+            return 0;
+          }
+        }
+
+        function resetStars() {
+          $("img.heart").attr("src","./resource/image/heart-empty.png");
+        }
+
+        function showStars(operator,count) {
+          let images=$("#div_"+operator+"_heart img");
+          for(let i=0;i<count;i++){
+            images[i].src="./resource/image/heart-red.png";
+          }
+        }
+
+        function resetResult() {
+          $("#div_result").html("");
+        }
+        function showResult(operator, index) {
+            $("#div_result").append(results[operator][index]+"<br/>");
+        }
+
+        const results={
+          "cmcc":["覆盖指标满足中国移动重点场景要求。","覆盖指标仅满足中国移动一般场景要求。","覆盖指标不满足中国移动要求。"],
+          "cu":["覆盖指标满足中国联通双通道高标准要求。","覆盖指标满足中国联通单通道高标准要求。","覆盖指标仅满足中国联通双通道一般标准要求。","覆盖指标仅满足中国联通单通道一般标准要求。","覆盖指标仅满足中国联通双通道低标准要求。","覆盖指标仅满足中国联通单通道低标准要求。","覆盖指标不满足中国联通要求。"],
+          "ct":["覆盖指标满足中国电信要求。","覆盖指标不满足中国电信要求。","覆盖指标不满足中国移动要求。"],
+          "leak":["外泄指标满足要求。","外泄指标不满足要求。"]
+        };
+
+        /**
+         * 获取评估结果
+         * @param operator
+         * @param index
+         * @returns {*}
+         */
+        function getResult(operator, index) {
+          return results[operator][index];
+        }
       });
     </script>
   </body>
