@@ -51,7 +51,8 @@
           <div class="title">仿真结果</div>
           <div style="padding:0px 5px 0px 5px;">
             <div style="text-align: right;">
-              <button style="width:100px;height:35px;background-color: green;color: white;" id="btn_evaluation">开始计算</button>
+              <button style="width:100px;height:35px;background-color: #FF8E1E;color: white;" id="btn_reset">重置</button>
+              <button style="width:100px;height:35px;background-color: #438046;color: white;" id="btn_evaluation">开始计算</button>
             </div>
             <div>
               <span>RSRP (dBm)</span>
@@ -205,6 +206,9 @@
     <script src="./resource/jquery.min.js"></script>
     <script type="text/javascript">
       $().ready(function () {
+        $("#btn_reset").click(function () {
+          $("input").val("");
+        });
         $("#btn_evaluation").click(function () {
           /*
           A RSRP (dBm)
