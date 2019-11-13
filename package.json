@@ -4,7 +4,9 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -17,6 +19,37 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^7.1.1"
+    "electron": "^7.1.1",
+    "electron-builder": "^22.1.0",
+    "electron-packager": "^14.1.0"
+  },
+  "build": {
+    "appId": "com.hnsi.app",
+    "productName": "Simulation evaluation",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": ["dmg", "zip"],
+      "icon": "build/icon.icns"
+    },
+    "dmg": {
+      "background": "build/background.tiff or build/background.png",
+      "title": "仿真评估",
+      "icon": "build/icon.icns"
+    },
+    "win": {
+      "target": ["nsis","zip"]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "仿真评估工具"
+    }
   }
 }
