@@ -2,15 +2,200 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>仿真评估工具</title>
+    <style>
+      .title {
+        height: 25px;
+        background-color: #4472c4;
+        color: white;
+        text-align: center;
+        line-height: 25px;
+      }
+      .logo{
+        width:60px;height: 50px;
+      }
+      .heart{
+        width:18px;height: 16px;
+        vertical-align: top;
+      }
+      table{
+        width:100%;
+      }
+      table td{
+        border: solid 1px;
+        collapse: 0px;
+        border-spacing: 0px;
+        width: 50%;
+        padding:1px;
+        text-align: center;
+        background-color: white;
+        font-size: small;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <div style="background-color: #f2f2f2;width:100%;height: 100%;padding:0px 5px 0px 5px;">
+      <div style="text-align: center;vertical-align: middle;">
+        <span style="font-weight: bold;line-height: 25px;">室内外联合覆盖方案仿真评估工具</span>
+      </div>
+      <div>
+        <div style="width:50%;height:520px;display:inline-block;background-color: #d9d9d9;vertical-align: top;">
+<!--          左-->
+          <div class="title">仿真结果</div>
+          <div style="padding:0px 5px 0px 5px;">
+            <div style="text-align: right;">
+              <button style="width:100px;background-color: green;color: white;" id="btn_evaluation">开始计算</button>
+            </div>
+            <div>
+              <span>RSRP (dBm)</span>
+              <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>[-Infinity,-115)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>[-115,-105)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>[-105,-95)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>[-95,-85)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>[-85,-75)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>[-75,0)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>[0,Infinity)</td>
+                  <td></td>
+                </tr>
+              </table>
+            </div>
+            <div>
+              <span>RS-SINR (dB)</span>
+              <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>1</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>2</td>
+                </tr>
+              </table>
+            </div>
+            <div>
+              <span>室外10米处</span>
+              <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>RSRP（dBm）</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>室外第一导频的RSRP（dBm）</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>室内小区外泄的RSRP（dBm）</td>
+                  <td>2</td>
+                </tr>
+              </table>
+            </div>
 
+          </div>
+        </div>
+        <div style="width:40%;height:520px;display:inline-block;background-color: #d9d9d9;vertical-align: top;">
+<!--          右-->
+          <div class="title">评估结果</div>
+          <div style="padding: 10px 5px 0px 25px;height: 280px;">
+            <div id="div_cmcc">
+              <div style="display: inline-block;width:30%;">
+                <img src="./resource/image/cmcc.png" class="logo">
+              </div>
+              <div style="display: inline-block;width:60%;vertical-align: middle;" id="div_cmcc_heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+              </div>
+            </div>
+            <div id="div_cu">
+              <div style="display: inline-block;width:30%;">
+                <img src="./resource/image/cu.png" class="logo">
+              </div>
+              <div style="display: inline-block;width:60%;" id="div_cu_heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+              </div>
+            </div>
+            <div id="div_ct">
+              <div style="display: inline-block;width:30%;">
+                <img src="./resource/image/ct.png" class="logo">
+              </div>
+              <div style="display: inline-block;width:60%;" id="div_ct_heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+                <img src="./resource/image/heart-red.png" class="heart">
+              </div>
+            </div>
+          </div>
+          <div style="height: 180px;background-color: white;">
+            <div>评估结果:</div>
+            <div>自动生成</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
+    <script src="./resource/jquery.min.js"></script>
+    <script type="text/javascript">
+      $().ready(function () {
+        // alert("111");
+      });
+    </script>
   </body>
 </html>
