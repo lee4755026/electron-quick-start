@@ -50,11 +50,11 @@ app.on('browser-window-created', function () {
     if (reopenMenuItem) reopenMenuItem.enabled = false
 })
 
-app.on('window-all-closed', function () {
-    let reopenMenuItem = findReopenMenuItem()
-    if (reopenMenuItem) reopenMenuItem.enabled = true
-    app.quit()
-})
+// app.on('window-all-closed', function () {
+//     let reopenMenuItem = findReopenMenuItem()
+//     if (reopenMenuItem) reopenMenuItem.enabled = true
+//     app.quit()
+// })
 
 
 /**
