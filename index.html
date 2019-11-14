@@ -19,10 +19,11 @@
         vertical-align: top;
       }
       .input{
-        width:120px;
-        border: 1px;
+        width:80%;
+        border: 0px;
+        /*border-bottom: 1px solid gray;*/
         text-align: right;
-        line-height: 20px;
+        line-height: 15px;
         padding-right:5px;
       }
       table{
@@ -46,7 +47,7 @@
         <span style="font-weight: bold;line-height: 25px;">室内外联合覆盖方案仿真评估工具</span>
       </div>
       <div>
-        <div style="width:55%;height:520px;display:inline-block;background-color: #d9d9d9;vertical-align: top;">
+        <div style="width:55%;height:600px;display:inline-block;background-color: #d9d9d9;vertical-align: top;">
 <!--          左-->
           <div class="title">仿真结果</div>
           <div style="padding:0px 5px 0px 5px;">
@@ -147,22 +148,22 @@
               <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td>RSRP（dBm）</td>
-                  <td><input type="text" class="input" id="input_c">%</span></td>
+                  <td><input type="text" class="input" id="input_c"></span></td>
                 </tr>
                 <tr>
                   <td>室外第一导频的RSRP（dBm）</td>
-                  <td><input type="text" class="input" id="input_d">%</span></td>
+                  <td><input type="text" class="input" id="input_d"></span></td>
                 </tr>
                 <tr>
                   <td>室内小区外泄的RSRP（dBm）</td>
-                  <td><input type="text" class="input" id="input_e">%</span></td>
+                  <td><input type="text" class="input" id="input_e"></span></td>
                 </tr>
               </table>
             </div>
 
           </div>
         </div>
-        <div style="width:43%;height:520px;display:inline-block;background-color: #d9d9d9;vertical-align: top;">
+        <div style="width:43%;height:600px;display:inline-block;background-color: #d9d9d9;vertical-align: top;">
 <!--          右-->
           <div class="title">评估结果</div>
           <div style="padding: 30px 5px 0px 25px;height: 250px;">
@@ -218,6 +219,8 @@
       $().ready(function () {
         $("#btn_reset").click(function () {
           $("input").val("");
+          resetStars();
+          resetResult();
         });
         let starCountMap={"cmcc":0,"cu":0,"ct":0};
         $("#btn_evaluation").click(function () {
@@ -337,7 +340,17 @@
           }
 
           //电信
-
+          if(sumAGte115>=95 && sumBGte3 >=95){
+            //3星
+            if(c<=-110 || d-e>=10){
+              showStars("ct",5);
+            }else{
+              showStars("ct",0);
+            }
+            showResult("ct",0);
+          }else{
+            showResult("ct",1);
+          }
 
           //外泄指标
           if(c<=-110 || d-e>=10){
@@ -345,8 +358,6 @@
           }else{
             showResult("leak",1);
           }
-
-
 
         });
 
@@ -384,7 +395,7 @@
           $("#div_result").html("");
         }
         function showResult(operator, index) {
-            $("#div_result").append(results[operator][index]+"<br/>");
+          $("#div_result").append(results[operator][index]+"<br/>");
         }
 
         const results={
@@ -393,16 +404,6 @@
           "ct":["覆盖指标满足中国电信要求。","覆盖指标不满足中国电信要求。","覆盖指标不满足中国移动要求。"],
           "leak":["外泄指标满足要求。","外泄指标不满足要求。"]
         };
-
-        /**
-         * 获取评估结果
-         * @param operator
-         * @param index
-         * @returns {*}
-         */
-        function getResult(operator, index) {
-          return results[operator][index];
-        }
       });
     </script>
   </body>
