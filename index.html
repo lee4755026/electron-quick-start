@@ -64,34 +64,40 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>[-115,-105)</td>
+                  <td>[-115,-110)</td>
                   <td>
                     <span><input type="text" class="input" id="input_a_1">%</span>
                   </td>
                 </tr>
                 <tr>
-                  <td>[-105,-100)</td>
-                  <td><span><input type="text" class="input" id="input_a_2">%</span></td>
+                  <td>[-110,-105)</td>
+                  <td>
+                    <span><input type="text" class="input" id="input_a_2">%</span>
+                  </td>
                 </tr>
                 <tr>
-                  <td>[-100,-95)</td>
+                  <td>[-105,-100)</td>
                   <td><span><input type="text" class="input" id="input_a_3">%</span></td>
                 </tr>
                 <tr>
-                  <td>[-95,-85)</td>
+                  <td>[-100,-95)</td>
                   <td><span><input type="text" class="input" id="input_a_4">%</span></td>
                 </tr>
                 <tr>
-                  <td>[-85,-75)</td>
+                  <td>[-95,-85)</td>
                   <td><span><input type="text" class="input" id="input_a_5">%</span></td>
                 </tr>
                 <tr>
-                  <td>[-75,0)</td>
+                  <td>[-85,-75)</td>
                   <td><span><input type="text" class="input" id="input_a_6">%</span></td>
                 </tr>
                 <tr>
-                  <td>[0,Infinity)</td>
+                  <td>[-75,0)</td>
                   <td><span><input type="text" class="input" id="input_a_7">%</span></td>
+                </tr>
+                <tr>
+                  <td>[0,Infinity)</td>
+                  <td><span><input type="text" class="input" id="input_a_8">%</span></td>
                 </tr>
               </table>
             </div>
@@ -218,21 +224,22 @@
           /*
           A RSRP (dBm)
           0:[-Infinity,-115)
-          1:[-115,-105)
-          2:[-105,-100)
-          3:[-100,-95)
-          4:[-95,-85)
-          5:[-85,-75)
-          6:[-75,0)
-          7:[0,Infinity)
+          1:[-115,-110)
+          2:[-110,-105)
+          3:[-105,-100)
+          4:[-100,-95)
+          5:[-95,-85)
+          6:[-85,-75)
+          7:[-75,0)
+          8:[0,Infinity)
           */
 
           //计算A ≥ -115 的总数
           const sumAGte115=sumInput("input_a_",1);
-          // alert(sumAGte115);
-          const sumAGte105=sumInput("input_a_",2);
-          const sumAGte100=sumInput("input_a_",3);
-          const sumAGte95=sumInput("input_a_",4);
+          const sumAGte110=sumInput("input_a_",2);
+          const sumAGte105=sumInput("input_a_",3);
+          const sumAGte100=sumInput("input_a_",4);
+          const sumAGte95=sumInput("input_a_",5);
 
           const sumBGte9=sumInput("input_b_",9);
           const sumBGte6=sumInput("input_b_",6);
@@ -277,7 +284,57 @@
           }
 
           //联通
-
+          if(sumAGte100>=90 && sumBGte6 >=90){
+            //3星
+            if(c<=-110 || d-e>=10){
+              showStars("cu",5);
+            }else{
+              showStars("cu",0);
+            }
+            showResult("cu",0);
+          }else if(sumAGte100>=90 && sumBGte5 >=90){
+            //3星
+            if(c<=-110 || d-e>=10){
+              showStars("cu",5);
+            }else{
+              showStars("cu",0);
+            }
+            showResult("cu",1);
+          }else if(sumAGte105>=90 && sumBGte4 >=90){
+            //2星
+            if(c<=-110 || d-e>=10){
+              showStars("cu",4);
+            }else{
+              showStars("cu",0);
+            }
+            showResult("cu",2);
+          }else if(sumAGte105>=90 && sumBGte3 >=90){
+            //2星
+            if(c<=-110 || d-e>=10){
+              showStars("cu",4);
+            }else{
+              showStars("cu",0);
+            }
+            showResult("cu",3);
+          }else if(sumAGte110>=90 && sumBGte2 >=90){
+            //1星
+            if(c<=-110 || d-e>=10){
+              showStars("cu",3);
+            }else{
+              showStars("cu",0);
+            }
+            showResult("cu",4);
+          }else if(sumAGte110>=90 && sumBGte1 >=90){
+            //1星
+            if(c<=-110 || d-e>=10){
+              showStars("cu",3);
+            }else{
+              showStars("cu",0);
+            }
+            showResult("cu",5);
+          }else{
+            showResult("cu",6);
+          }
 
           //电信
 
