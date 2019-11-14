@@ -126,7 +126,7 @@ let template = [
         submenu: [{
             label: 'FeedBack ( 意见反馈 )',
             click: function () {
-              electron.shell.openExternal('https://forum.iptchain.net')
+                electron.shell.openExternal('https://forum.iptchain.net')
             }
         }]
     }

@@ -103,7 +103,7 @@
               </table>
             </div>
             <div>
-              <span>RS-SINR (dB)</span>
+              <span>RS-SINR (dB)</span><span id>RS-SINR (dB)</span>
               <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td>1</td>
@@ -215,6 +215,7 @@
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
     <script src="./resource/jquery.min.js"></script>
+    <script src="./resource/layer/layer.js"></script>
     <script type="text/javascript">
       $().ready(function () {
         $("#btn_reset").click(function () {
@@ -238,6 +239,7 @@
           */
 
           //计算A ≥ -115 的总数
+          const sumATotal=sumInput("input_a_",0);
           const sumAGte115=sumInput("input_a_",1);
           const sumAGte110=sumInput("input_a_",2);
           const sumAGte105=sumInput("input_a_",3);
@@ -251,10 +253,20 @@
           const sumBGte3=sumInput("input_b_",3);
           const sumBGte2=sumInput("input_b_",2);
           const sumBGte1=sumInput("input_b_",1);
+          const sumBTotal=sumInput("input_b_",1);
 
           const c=getValue($("#input_c"));
           const d=getValue($("#input_d"));
           const e=getValue($("#input_e"));
+
+          if(sumATotal>100){
+            layer.alert("RSRP 指标总和不能超过100%！");
+            return;
+          }
+          if(sumBTotal>100){
+            layer.alert("RS-SINR 指标总和不能超过100%！");
+            return;
+          }
 
           resetStars();
           resetResult();
@@ -377,6 +389,7 @@
           } else {
             return 0;
           }
+
         }
 
         function resetStars() {
