@@ -70,24 +70,28 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>[-105,-95)</td>
+                  <td>[-105,-100)</td>
                   <td><span><input type="text" class="input" id="input_a_2">%</span></td>
                 </tr>
                 <tr>
-                  <td>[-95,-85)</td>
+                  <td>[-100,-95)</td>
                   <td><span><input type="text" class="input" id="input_a_3">%</span></td>
                 </tr>
                 <tr>
-                  <td>[-85,-75)</td>
+                  <td>[-95,-85)</td>
                   <td><span><input type="text" class="input" id="input_a_4">%</span></td>
                 </tr>
                 <tr>
-                  <td>[-75,0)</td>
+                  <td>[-85,-75)</td>
                   <td><span><input type="text" class="input" id="input_a_5">%</span></td>
                 </tr>
                 <tr>
-                  <td>[0,Infinity)</td>
+                  <td>[-75,0)</td>
                   <td><span><input type="text" class="input" id="input_a_6">%</span></td>
+                </tr>
+                <tr>
+                  <td>[0,Infinity)</td>
+                  <td><span><input type="text" class="input" id="input_a_7">%</span></td>
                 </tr>
               </table>
             </div>
@@ -209,24 +213,26 @@
         $("#btn_reset").click(function () {
           $("input").val("");
         });
+        let starCountMap={"cmcc":0,"cu":0,"ct":0};
         $("#btn_evaluation").click(function () {
           /*
           A RSRP (dBm)
           0:[-Infinity,-115)
           1:[-115,-105)
-          2:[-105,-95)
-          3:[-95,-85)
-          4:[-85,-75)
-          5:[-75,0)
-          6:[0,Infinity)
+          2:[-105,-100)
+          3:[-100,-95)
+          4:[-95,-85)
+          5:[-85,-75)
+          6:[-75,0)
+          7:[0,Infinity)
           */
 
           //计算A ≥ -115 的总数
           const sumAGte115=sumInput("input_a_",1);
           // alert(sumAGte115);
           const sumAGte105=sumInput("input_a_",2);
-          const sumAGte100=sumInput("input_a_",2);//TODO：无法计算
-          const sumAGte95=sumInput("input_a_",3);
+          const sumAGte100=sumInput("input_a_",3);
+          const sumAGte95=sumInput("input_a_",4);
 
           const sumBGte9=sumInput("input_b_",9);
           const sumBGte6=sumInput("input_b_",6);
@@ -245,13 +251,42 @@
 
           //移动
           if(sumAGte95 >=99 && sumBGte9>=99){
-            showStars("cmcc",3);
+            let count;
+            //3星
+            if(c<=-110 || d-e>=10){
+              //满足外泄指标+2星
+              count=5;
+            }else{
+              count=0;
+            }
+            showStars("cmcc",count);
             showResult("cmcc",0);
           }else if(sumAGte105 >=99 && sumBGte6>=99){
-            showStars("cmcc",2);
+            let count;
+            //2星
+            if(c<=-110 || d-e>=10){
+              //满足外泄指标+2星
+              count=4;
+            }else{
+              count=0;
+            }
+            showStars("cmcc",count);
             showResult("cmcc",1);
           } else{
             showResult("cmcc",2);
+          }
+
+          //联通
+
+
+          //电信
+
+
+          //外泄指标
+          if(c<=-110 || d-e>=10){
+            showResult("leak",0);
+          }else{
+            showResult("leak",1);
           }
 
 
@@ -277,6 +312,7 @@
         }
 
         function resetStars() {
+          starCountMap={"cmcc":0,"cu":0,"ct":0}
           $("img.heart").attr("src","./resource/image/heart-empty.png");
         }
 
