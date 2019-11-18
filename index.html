@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>仿真评估工具</title>
+    <script src="resource/bootstrap/js/bootstrap.min.js"></script>
+    <link href="resource/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
       .title {
         height: 25px;
@@ -41,183 +43,122 @@
       }
     </style>
   </head>
-  <body style="width: 900px;background-color: #f2f2f2;">
+  <body style="width: 900px;background-color: #ffffff;">
     <div style="background-color: #f2f2f2;width:100%;height: 100%;padding:0px 5px 0px 5px;">
       <div style="text-align: center;vertical-align: middle;">
         <span style="font-weight: bold;line-height: 25px;">室内外联合覆盖方案仿真评估工具</span>
       </div>
       <div>
-        <div style="width:55%;height:600px;display:inline-block;background-color: #d9d9d9;vertical-align: top;">
+        <div style="width:100%;height:600px;display:inline-block;background-color: #ffffff;vertical-align: top;">
 <!--          左-->
           <div class="title">仿真结果</div>
           <div style="padding:0px 5px 0px 5px;">
+            <div>
+              <input type="text" class="form-control" placeholder="Text input" style="width:60px;">
+              <input type="text" class="form-control" id="" value="" placeholder="提示内容">
+              <input type="text" class="form-control" id="" value="" placeholder="提示内容">
+              <input type="text" class="form-control" id="" value="" placeholder="提示内容">
+              <input type="text" class="form-control" id="" value="" placeholder="提示内容">
+
+              <button style="width:100px;height:35px;" class="btn btn-xs btn-primary" id="btn_add">添加</button>
+            </div>
             <div style="text-align: right;">
               <button style="width:100px;height:35px;background-color: #FF8E1E;color: white;" id="btn_reset">重置</button>
               <button style="width:100px;height:35px;background-color: #438046;color: white;" id="btn_evaluation">开始计算</button>
             </div>
-            <div>
-              <span>RSRP (dBm)</span>
-              <table border="0" cellspacing="0" cellpadding="0">
+            <div class="row">
+              <div class="col-md-12" style="max-height: 400px;overflow-y: auto;">
+              <table class="table table-striped table-bordered" id="table">
+                <thead>
                 <tr>
-                  <td>[-Infinity,-115)</td>
-                  <td>
-                    <span><input type="text" class="input" id="input_a_0">%</span>
-                  </td>
+                  <th>序号</th>
+                  <th>覆盖楼宇高度(m)</th>
+                  <th>与对打楼宇间距(m)</th>
+                  <th>水平波瓣角(°)</th>
+                  <th>垂直波瓣角(°)</th>
+                  <th>天线口功率(dbm）</th>
+                  <th>天线增益(dbm）</th>
+                  <th>建议天线与楼边距离(m)</th>
+                  <th>建议天线挂高(m)</th>
+                  <th>中心点RSRP(dbm)</th>
                 </tr>
-                <tr>
-                  <td>[-115,-110)</td>
-                  <td>
-                    <span><input type="text" class="input" id="input_a_1">%</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>[-110,-105)</td>
-                  <td>
-                    <span><input type="text" class="input" id="input_a_2">%</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>[-105,-100)</td>
-                  <td><span><input type="text" class="input" id="input_a_3">%</span></td>
-                </tr>
-                <tr>
-                  <td>[-100,-95)</td>
-                  <td><span><input type="text" class="input" id="input_a_4">%</span></td>
-                </tr>
-                <tr>
-                  <td>[-95,-85)</td>
-                  <td><span><input type="text" class="input" id="input_a_5">%</span></td>
-                </tr>
-                <tr>
-                  <td>[-85,-75)</td>
-                  <td><span><input type="text" class="input" id="input_a_6">%</span></td>
-                </tr>
-                <tr>
-                  <td>[-75,0)</td>
-                  <td><span><input type="text" class="input" id="input_a_7">%</span></td>
-                </tr>
-                <tr>
-                  <td>[0,Infinity)</td>
-                  <td><span><input type="text" class="input" id="input_a_8">%</span></td>
-                </tr>
-              </table>
-            </div>
-            <div>
-              <span>RS-SINR (dB)</span><span id>RS-SINR (dB)</span>
-              <table border="0" cellspacing="0" cellpadding="0">
+                </thead>
+                <tbody>
                 <tr>
                   <td>1</td>
-                  <td><span><input type="text" class="input" id="input_b_1">%</span></td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td><input type="text" class="input" id="input_b_2">%</span></td>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
                 </tr>
                 <tr>
                   <td>3</td>
-                  <td><input type="text" class="input" id="input_b_3">%</span></td>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
                 </tr>
-                <tr>
-                  <td>4</td>
-                  <td><input type="text" class="input" id="input_b_4">%</span></td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td><input type="text" class="input" id="input_b_5">%</span></td>
-                </tr>
-                <tr>
-                  <td>6</td>
-                  <td><input type="text" class="input" id="input_b_6">%</span></td>
-                </tr>
-                <tr>
-                  <td>7</td>
-                  <td><input type="text" class="input" id="input_b_7">%</span></td>
-                </tr>
-                <tr>
-                  <td>8</td>
-                  <td><input type="text" class="input" id="input_b_8">%</span></td>
-                </tr>
-                <tr>
-                  <td>9</td>
-                  <td><input type="text" class="input" id="input_b_9">%</span></td>
-                </tr>
+                </tbody>
               </table>
+              </div>
             </div>
-            <div>
-              <span>室外10米处:</span>
-              <table border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td>RSRP（dBm）</td>
-                  <td><input type="text" class="input" id="input_c"></span></td>
-                </tr>
-                <tr>
-                  <td>室外第一导频的RSRP（dBm）</td>
-                  <td><input type="text" class="input" id="input_d"></span></td>
-                </tr>
-                <tr>
-                  <td>室内小区外泄的RSRP（dBm）</td>
-                  <td><input type="text" class="input" id="input_e"></span></td>
-                </tr>
-              </table>
-            </div>
-
           </div>
         </div>
-        <div style="width:43%;height:600px;display:inline-block;background-color: #d9d9d9;vertical-align: top;">
-<!--          右-->
-          <div class="title">评估结果</div>
-          <div style="padding: 30px 5px 0px 25px;height: 250px;">
-            <div id="div_cmcc">
-              <div style="display: inline-block;width:30%;">
-                <img src="./resource/image/cmcc.png" class="logo">
-              </div>
-              <div style="display: inline-block;width:60%;vertical-align: middle;line-height: 54px;" id="div_cmcc_heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-              </div>
-            </div>
-            <div id="div_cu">
-              <div style="display: inline-block;width:30%;">
-                <img src="./resource/image/cu.png" class="logo">
-              </div>
-              <div style="display: inline-block;width:60%;line-height: 54px;" id="div_cu_heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-              </div>
-            </div>
-            <div id="div_ct">
-              <div style="display: inline-block;width:30%;">
-                <img src="./resource/image/ct.png" class="logo">
-              </div>
-              <div style="display: inline-block;line-height: 54px;width:60%;" id="div_ct_heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-                <img src="./resource/image/heart-empty.png" class="heart">
-              </div>
-            </div>
-          </div>
-          <div style="height: 180px;background-color: white;">
-            <div>评估结果:</div>
-            <div id="div_result">自动生成</div>
-          </div>
-        </div>
-
       </div>
     </div>
+    <template id="template">
+      <tr>
+        <td>{{a}}</td>
+        <td>{{b}}</td>
+        <td>{{c}}</td>
+        <td>{{d}}</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </template>
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
     <script src="./resource/jquery.min.js"></script>
     <script src="./resource/layer/layer.js"></script>
+
     <script type="text/javascript">
       $().ready(function () {
+        let dataSet=[
+          {
+            number:1,
+            A:10,
+            H:20,
+            a:10,
+            b:10,
+            P:10,
+            G:10,
+            X:0,
+            Y:0,
+            Z:0
+          },{
+            number:1,
+            A:10,
+            H:20,
+            a:10,
+            b:10,
+            P:10,
+            G:10,
+            X:0,
+            Y:0,
+            Z:0
+          }
+        ];
+
+        $("#btn_add").click(function () {
+            dataSet.push({});
+
+          // $("#table tbody").append($("#template").html());
+          renderer();
+        });
         $("#btn_reset").click(function () {
           $("input").val("");
           resetStars();
@@ -409,6 +350,13 @@
         }
         function showResult(operator, index) {
           $("#div_result").append(results[operator][index]+"<br/>");
+        }
+
+        /**
+         * 渲染表格数据
+         */
+        function renderer() {
+
         }
 
         const results={
