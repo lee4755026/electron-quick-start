@@ -1,5 +1,5 @@
 {
-  "name": "Simulation-Evaluation",
+  "name": "Calculator",
   "version": "1.0.0",
   "description": "A minimal Electron application",
   "main": "main.js",
@@ -24,8 +24,8 @@
     "electron-packager": "^14.1.0"
   },
   "build": {
-    "appId": "com.hnsi.app",
-    "productName": "Simulation-Evaluation",
+    "appId": "com.hnsi.app.calculator",
+    "productName": "Calculator",
     "directories": {
       "buildResources": "build",
       "output": "dist"
@@ -40,7 +40,7 @@
     },
     "dmg": {
       "background": "build/background.tiff or build/background.png",
-      "title": "仿真评估",
+      "title": "楼间对打天线布放位置辅助计算工具",
       "icon": "build/icon.icns"
     },
     "win": {
