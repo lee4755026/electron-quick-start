@@ -20,7 +20,10 @@
       .table td{
         /*border-right:1px solid grey;*/
         width:60px;
+        text-align: center;
+        vertical-align: middle;
       }
+
     </style>
   </head>
   <body style="width: 900px;background-color: #ffffff;">
@@ -41,7 +44,7 @@
                   <td>天线口功率(dbm)</td>
                   <td>天线增益(dbm)</td>
                   <td></td>
-                  <td style="background-color: #0e90d2;">频段(Mhz)</td>
+                  <td style="background-color: #0e90d2;color:white;font-weight: bold;">频段(Mhz)</td>
                 </tr>
                 <tr>
                   <td><input type="text" class="form-control" placeholder="" style="width:60px;" id="input_H" value="60"></td>
@@ -59,7 +62,7 @@
             <div style="text-align: right;">
               <button style="width:100px;height:35px;" class="btn btn-xs btn-warning" id="btn_reset">重置</button>
               <button style="width:100px;height:35px;" class="btn btn-xs btn-primary" id="btn_add">添加</button>
-              <button style="width:100px;height:35px;" class="btn btn-xs btn-success" id="btn_evaluation">开始计算</button>
+<!--              <button style="width:100px;height:35px;" class="btn btn-xs btn-success" id="btn_evaluation">开始计算</button>-->
             </div>
             <div class="row" style="padding: 5px 0px 5px 20px;">
               <div class="col-md-12" style="max-height: 400px;overflow-y: auto;">
@@ -87,8 +90,16 @@
         </div>
       </div>
     </div>
+    <!-- 自定义右键菜单dom -->
+    <div class="contextMenu" id="myMenu1">
+      <ul>
+        <li id="clear-current">清除当前行</li>
+        <li id="clear-all">清除所有行</li>
+      </ul>
+    </div>
+
     <template id="template">
-      <tr>
+      <tr class="tr">
         <td>{{number}}</td>
         <td>{{H}}</td>
         <td>{{A}}</td>
@@ -105,13 +116,21 @@
     <script src="./renderer.js"></script>
     <script src="./resource/jquery.min.js"></script>
     <script src="./resource/layer/layer.js"></script>
+    <script src="./resource/jquery.contextmenu.r2.js"></script>
 
     <script type="text/javascript">
+
+
       $().ready(function () {
         let number=1;
         let dataSet=[];
 
         $("#btn_add").click(function () {
+          if(!$("#input_H").val() ||!$("#input_AH").val()|| !$("#input_a").val()|| !$("#input_b").val()
+          ||!$("#input_P").val()||!$("#input_G").val()||!$("#input_F").val()){
+            layer.alert("请完整填写数据");
+            return;
+          }
           let item = {
             number:number++,
             H:$("#input_H").val(),
@@ -122,17 +141,17 @@
             G:$("#input_G").val(),
             F:$("#input_F").val()
           };
-          item["X"]=parseFloat(item.A)*Math.tan(parseFloat(item.a)*Math.PI/180/2);//X=A*tan(a/2)
-          item["Y"]=parseFloat(item.H)-parseFloat(item.A)*Math.tan(parseFloat(item.b)*Math.PI/180/2);//Y=H-A*tan(b/2)
-          item["Z"]=parseFloat(item.P)+parseFloat(item.G)-20*Math.log10(parseFloat(item.F))-20*Math.log10(parseFloat(item.A)/1000)-32.45;//Z=P+G-20lgF-20lg(A/1000)-32.45
+          item["X"]=(parseFloat(item.A)*Math.tan(parseFloat(item.a)*Math.PI/180/2)).toFixed(2);//X=A*tan(a/2)
+          item["Y"]=(parseFloat(item.H)-parseFloat(item.A)*Math.tan(parseFloat(item.b)*Math.PI/180/2)).toFixed(2);//Y=H-A*tan(b/2)
+          item["Z"]=(parseFloat(item.P)+parseFloat(item.G)-20*Math.log10(parseFloat(item.F))-20*Math.log10(parseFloat(item.A)/1000)-32.45).toFixed(2);//Z=P+G-20lgF-20lg(A/1000)-32.45
 
           dataSet.push(item);
-
 
           renderer();
         });
         $("#btn_reset").click(function () {
           $("input").val("");
+          dataSet=[];
           renderer();
         });
         $("#btn_evaluation").click(function () {
@@ -151,8 +170,62 @@
               tr=tr.replace("{{"+key+"}}",data[key]);
             }
             $("#table tbody").append(tr);
+
+            //所有class为demo1的span标签都会绑定此右键菜单
+            $('#table tbody tr').contextMenu('myMenu1',
+                    {
+                      bindings:
+                              {
+                                'clear-current': function(t) {
+                                  let number = $(t).children()[0].innerText;
+                                  removeArray(dataSet,{number:number});
+                                  t.remove();
+
+                                },
+                                'clear-all': function(t) {
+                                  number=1;
+                                  dataSet=[];
+                                  renderer();
+                                }
+                              }
+                    });
           }
         }
+        /*删除数组中的某一个对象
+        _arr:数组
+        _obj:需删除的对象
+        */
+        function removeArray(_arr, _obj) {
+          var length = _arr.length;
+          for (var i = 0; i < length; i++) {
+            if (_arr[i].number == _obj.number) {
+              if (i == 0) {
+                _arr.shift(); //删除并返回数组的第一个元素
+                return _arr;
+              }
+              else if (i == length - 1) {
+                _arr.pop();  //删除并返回数组的最后一个元素
+                return _arr;
+              }
+              else {
+                _arr.splice(i, 1); //删除下标为i的元素
+                return _arr;
+              }
+            }
+          }
+        }
+
+        function getIndex (_arr,_obj) {
+          var len = _arr.length;
+          for(var i = 0; i < len; i++)
+          {
+            if(_arr[i] == _obj)
+            {
+              return parseInt(i);
+            }
+          }
+          return -1;
+        };
       });
     </script>
   </body>
