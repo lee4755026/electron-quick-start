@@ -123,7 +123,7 @@
         <td>{{G}}</td>
         <td>{{X}}</td>
         <td>{{Y}}</td>
-        <td><input type="text" class="input_M" placeholder="" style="width:60px;border:0px;" value="0"></td>
+        <td style="padding-bottom:0px;"><input type="text" class="input_M" placeholder="" style="width:60px;border:0px;" value="{{M}}"></td>
         <td>{{Q}}</td>
         <td>{{Z}}</td>
       </tr>
@@ -207,17 +207,24 @@
                             }
                           }
                 });
-            $(".input_M").blur(function () {
+            $(".input_M").keyup(function () {
               layer.load();
               let tr=this.closest("tr");
               let number =tr.children[0].innerText;
-              let item=getItem(number);
+
+              let index=getIndex(dataSet,{number:number});
+              let item = dataSet[index];
               item.M=this.value;
               item["Q"]=(Math.atan((parseFloat(item.H)-parseFloat(item.M))/parseFloat(item.A))*180/Math.PI-(parseFloat(item.b)/2)).toFixed(2);//Q=arctan[(H-Y)/A] - b/2
               item["Z"]=(parseFloat(item.P)+parseFloat(item.G)-20*Math.log10(parseFloat(item.F))-20*Math.log10(parseFloat(item.A)/Math.cos(parseFloat(item.Q)*Math.PI/180)/1000)-32.45).toFixed(2);//Z=P+G-20lgF-20lg(A/1000)-32.45
 
               $(tr).find("td:eq(10)").html(item["Q"]);
               $(tr).find("td:eq(11)").html(item["Z"]);
+
+              dataSet[index]=item;
+
+              console.log(dataSet);
+
 
               layer.closeAll();
             });
