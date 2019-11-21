@@ -57,9 +57,9 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "辅助计算工具",
-      "installerIcon": "build/installerIcon_120.ico",
-      "uninstallerIcon": "build/uninstallerIcon_120.ico",
-      "installerHeaderIcon": "build/installerHeaderIcon_120.ico"
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico"
     }
   }
 }
