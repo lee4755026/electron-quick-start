@@ -17,6 +17,12 @@
       .table{
         width:100%;
       }
+      .table th{
+        /*border-right:1px solid grey;*/
+        width:60px;
+        text-align: center;
+        vertical-align: middle;
+      }
       .table td{
         /*border-right:1px solid grey;*/
         width:60px;
@@ -26,7 +32,7 @@
 
     </style>
   </head>
-  <body style="width: 900px;background-color: #ffffff;">
+  <body style="width: 900px;background-color: #ffffff;overflow-y: hidden;">
     <div style="background-color: #f2f2f2;width:100%;height: 100%;padding:0px 5px 0px 5px;">
       <div>
         <div style="width:100%;height:600px;display:inline-block;background-color: #ffffff;vertical-align: top;">
@@ -64,12 +70,18 @@
               <button style="width:100px;height:35px;" class="btn btn-xs btn-primary" id="btn_add">添加</button>
 <!--              <button style="width:100px;height:35px;" class="btn btn-xs btn-success" id="btn_evaluation">开始计算</button>-->
             </div>
+
+            <div style="padding:10px 270px 5px 10px;">
+              <span style="font-size: 17.5px;font-family: inherit; font-weight: bold; line-height: 20px; color: inherit; text-rendering: optimizelegibility;">数据视图</span>
+              <span class="pull-right" style="font-size: 17.5px ;font-family: inherit; font-weight: bold; line-height: 20px; color: inherit; text-rendering: optimizelegibility;">计算结果</span>
+            </div>
+
             <div class="row" style="padding: 5px 0px 5px 20px;">
-              <div class="col-md-12" style="max-height: 400px;overflow-y: auto;">
+              <div class="col-md-12" style="max-height: 340px;overflow-y: auto;">
               <table class="table table-striped table-bordered text-center" id="table">
                 <thead>
                 <tr>
-                  <th>序号</th>
+                  <th style="width:5%;">序号</th>
                   <th>覆盖楼宇高度(m)</th>
                   <th>与对打楼宇间距(m)</th>
                   <th>水平波瓣角(°)</th>
@@ -78,6 +90,8 @@
                   <th>天线增益(dbm)</th>
                   <th style="background-color: yellow;">建议天线与楼边距离(m)</th>
                   <th style="background-color: yellow;">建议天线挂高(m)</th>
+                  <th style="background-color: #ffaa21;">实际可满足天线挂高(m)</th>
+                  <th style="background-color: yellow;">建议天线俯仰角(°）</th>
                   <th style="background-color: yellow;">中心点RSRP(dbm)</th>
                 </tr>
                 </thead>
@@ -100,7 +114,7 @@
 
     <template id="template">
       <tr class="tr">
-        <td>{{number}}</td>
+        <td style="width:5%;">{{number}}</td>
         <td>{{H}}</td>
         <td>{{A}}</td>
         <td>{{a}}</td>
@@ -109,6 +123,8 @@
         <td>{{G}}</td>
         <td>{{X}}</td>
         <td>{{Y}}</td>
+        <td><input type="text" class="input_M" placeholder="" style="width:60px;border:0px;" value="0"></td>
+        <td>{{Q}}</td>
         <td>{{Z}}</td>
       </tr>
     </template>
@@ -139,14 +155,15 @@
             b:$("#input_b").val(),
             P:$("#input_P").val(),
             G:$("#input_G").val(),
-            F:$("#input_F").val()
+            F:$("#input_F").val(),
+            M:0
           };
           item["X"]=(parseFloat(item.A)*Math.tan(parseFloat(item.a)*Math.PI/180/2)).toFixed(2);//X=A*tan(a/2)
           item["Y"]=(parseFloat(item.H)-parseFloat(item.A)*Math.tan(parseFloat(item.b)*Math.PI/180/2)).toFixed(2);//Y=H-A*tan(b/2)
-          item["Z"]=(parseFloat(item.P)+parseFloat(item.G)-20*Math.log10(parseFloat(item.F))-20*Math.log10(parseFloat(item.A)/1000)-32.45).toFixed(2);//Z=P+G-20lgF-20lg(A/1000)-32.45
+          item["Q"]=(Math.atan((parseFloat(item.H)-parseFloat(item.M))/parseFloat(item.A))*180/Math.PI-(parseFloat(item.b)/2)).toFixed(2);//Q=arctan[(H-Y)/A] - b/2
+          item["Z"]=(parseFloat(item.P)+parseFloat(item.G)-20*Math.log10(parseFloat(item.F))-20*Math.log10(parseFloat(item.A)/Math.cos(parseFloat(item.Q)*Math.PI/180)/1000)-32.45).toFixed(2);//Z=P+G-20lgF-20lg(A/1000)-32.45
 
           dataSet.push(item);
-
           renderer();
         });
         $("#btn_reset").click(function () {
@@ -169,26 +186,41 @@
             for(let key in data){
               tr=tr.replace("{{"+key+"}}",data[key]);
             }
+            $(tr).attr("item",data);
             $("#table tbody").append(tr);
 
             //所有class为demo1的span标签都会绑定此右键菜单
             $('#table tbody tr').contextMenu('myMenu1',
-                    {
-                      bindings:
-                              {
-                                'clear-current': function(t) {
-                                  let number = $(t).children()[0].innerText;
-                                  removeArray(dataSet,{number:number});
-                                  t.remove();
+                {
+                  bindings:
+                          {
+                            'clear-current': function(t) {
+                              let number = $(t).children()[0].innerText;
+                              removeArray(dataSet,{number:number});
+                              t.remove();
 
-                                },
-                                'clear-all': function(t) {
-                                  number=1;
-                                  dataSet=[];
-                                  renderer();
-                                }
-                              }
-                    });
+                            },
+                            'clear-all': function(t) {
+                              number=1;
+                              dataSet=[];
+                              renderer();
+                            }
+                          }
+                });
+            $(".input_M").blur(function () {
+              layer.load();
+              let tr=this.closest("tr");
+              let number =tr.children[0].innerText;
+              let item=getItem(number);
+              item.M=this.value;
+              item["Q"]=(Math.atan((parseFloat(item.H)-parseFloat(item.M))/parseFloat(item.A))*180/Math.PI-(parseFloat(item.b)/2)).toFixed(2);//Q=arctan[(H-Y)/A] - b/2
+              item["Z"]=(parseFloat(item.P)+parseFloat(item.G)-20*Math.log10(parseFloat(item.F))-20*Math.log10(parseFloat(item.A)/Math.cos(parseFloat(item.Q)*Math.PI/180)/1000)-32.45).toFixed(2);//Z=P+G-20lgF-20lg(A/1000)-32.45
+
+              $(tr).find("td:eq(10)").html(item["Q"]);
+              $(tr).find("td:eq(11)").html(item["Z"]);
+
+              layer.closeAll();
+            });
           }
         }
         /*删除数组中的某一个对象
@@ -215,11 +247,21 @@
           }
         }
 
+        /**
+         * 获取对象
+         * @param number
+         * @returns {*}
+         */
+        function getItem(number) {
+          let index=getIndex(dataSet,{number:number});
+          return dataSet[index];
+        }
+
         function getIndex (_arr,_obj) {
           var len = _arr.length;
           for(var i = 0; i < len; i++)
           {
-            if(_arr[i] == _obj)
+            if(_arr[i].number == _obj.number)
             {
               return parseInt(i);
             }
